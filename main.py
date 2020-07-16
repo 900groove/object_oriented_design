@@ -1,14 +1,26 @@
 from dataclasses import dataclass
 from typing import List
+import math
 
 
-@dataclass
 class Wheel:
-    rim: float
-    tire: float
+    def __init__(self, rim: float, tire: float):
+        self.__rim = rim
+        self.__tire = tire
+
+    @property
+    def rim(self):
+        return self.__rim
+
+    @property
+    def tire(self):
+        return self.__tire
 
     def diameter(self):
         return self.rim + (self.tire * 2)
+
+    def circumference(self):
+        return self.diameter() * math.pi
 
 
 class Gear:
@@ -69,3 +81,8 @@ if __name__ == "__main__":
 
     for w in wheelify(data):
         print(Gear(32, 21, w).get_inches())
+
+    wheel = Wheel(26, 1.5)
+    print(wheel.circumference())
+    print(Gear(52, 11, wheel).get_inches())
+    print(Gear(52, 11, wheel).ratio())
